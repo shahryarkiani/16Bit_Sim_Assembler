@@ -3,7 +3,9 @@ project(toy_assembler)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(toy_assembler src/asm_main.cpp)
+add_executable(toy_assembler src/asm_main.cpp  )
+
+add_executable(toy_simulator src/sim_main.cpp src/Simulator.cpp src/Simulator.h)
 
 Include(FetchContent)
 
@@ -15,5 +17,5 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(Catch2)
 
-add_executable(tests test/asm_tests.cpp)
+add_executable(tests test/asm_tests.cpp test/sim_tests.cpp src/Simulator.h src/Simulator.cpp)
 target_link_libraries(tests PRIVATE Catch2::Catch2WithMain)
