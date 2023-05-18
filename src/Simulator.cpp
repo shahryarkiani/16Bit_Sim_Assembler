@@ -36,8 +36,11 @@ uint16_t Simulator::executeInstruction() {
         case 2: {
             //TODO
         }
-        case 3: {
-            //TODO
+        case 3: {//Load Upper Immediate
+            auto& regA = getRegA();
+            auto immd = getUnsignedImmediate();
+            immd = (immd << 6) & (0xFFC0);
+            regA = immd;
         }
         case 4: {
             //TODO
