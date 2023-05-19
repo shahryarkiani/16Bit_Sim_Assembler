@@ -18,6 +18,7 @@ int Simulator::step() {
     if(!isHalted()) {
         ir = memory[pc];
         pc = executeInstruction();
+        registers[0] = 0;//This clears any writes to r0 from executeInstruction()
     }
 
 }
