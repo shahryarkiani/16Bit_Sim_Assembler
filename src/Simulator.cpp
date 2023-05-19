@@ -29,7 +29,11 @@ uint16_t Simulator::executeInstruction() {
 
     switch(opcode) {
         case 0: {
-            //TODO
+            auto& regA = getRegA();
+            auto& regB = getRegB();
+            auto& regC = getRegC();
+            regC = regA + regB;
+            break;
         }
         case 1: {
             //TODO
@@ -42,6 +46,7 @@ uint16_t Simulator::executeInstruction() {
             auto immd = getUnsignedImmediate();
             immd = (immd << 6) & (0xFFC0);
             regA = immd;
+            break;
         }
         case 4: {
             //TODO
@@ -56,6 +61,8 @@ uint16_t Simulator::executeInstruction() {
             //TODO
         }
     }
+
+    return pc + 1;
 
 }
 
