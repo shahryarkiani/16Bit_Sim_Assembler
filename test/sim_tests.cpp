@@ -19,5 +19,11 @@ TEST_CASE("TEST ADD TWO REGISTERS INTO THIRD") {
     sim.step();
     sim.step();
     REQUIRE(sim.getRegisters()[3] == (2 * (1<<6)));
+}
 
+TEST_CASE("TEST ADD-I OPCODE") {
+    auto sim = Simulator({0x6801, 0x255B});//Loads 64 into r2, then adds -37 to it and stores result in r1
+    sim.step();
+    sim.step();
+    REQUIRE(sim.getRegisters()[1] == (27));
 }
