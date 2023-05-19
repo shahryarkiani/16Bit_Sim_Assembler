@@ -36,10 +36,14 @@ uint16_t Simulator::executeInstruction() {
             break;
         }
         case 1: {
-            //TODO
+            auto& regA = getRegA();
+            auto& regB = getRegB();
+            regA = regB + getSignedImmediate();
+            break;
         }
         case 2: {
             //TODO
+            break;
         }
         case 3: {//Load Upper Immediate
             auto& regA = getRegA();
@@ -50,15 +54,19 @@ uint16_t Simulator::executeInstruction() {
         }
         case 4: {
             //TODO
+            break;
         }
         case 5: {
             //TODO
+            break;
         }
         case 6: {
             //TODO
+            break;
         }
         case 7: {
             //TODO
+            break;
         }
     }
 
