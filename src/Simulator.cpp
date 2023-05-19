@@ -60,10 +60,16 @@ uint16_t Simulator::executeInstruction() {
             break;
         }
         case 5: {
+            auto& regA = getRegA();
+            auto& regB = getRegB();
+            auto immd = getSignedImmediate();
+            regA = memory[regB + immd];
             break;
         }
         case 6: {
-            //TODO
+            if(getRegA() == getRegB()) {
+                return pc + 1 + getSignedImmediate();
+            }
             break;
         }
         case 7: {
