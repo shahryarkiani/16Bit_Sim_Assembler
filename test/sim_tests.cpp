@@ -30,7 +30,7 @@ TEST_CASE("TEST ADD-I OPCODE") {
 
 TEST_CASE("TEST STORE WORD OPCODE") {
     //Store 32 in r1, then 55 in r2, then load r2 into M[32 + imm], where imm = 63
-    auto sim = Simulator({0x24A0, 0x2937, 0xA8BF});
+    auto sim = Simulator({0x24A0, 0x2937, 0x88BF});
     sim.step();
     sim.step();
     sim.step();

@@ -53,14 +53,13 @@ uint16_t Simulator::executeInstruction() {
             break;
         }
         case 4: {
-            //TODO
-            break;
-        }
-        case 5: {
             auto& regA = getRegA();
             auto& regB = getRegB();
             auto immd = getSignedImmediate();
             memory[regB + immd] = regA;
+            break;
+        }
+        case 5: {
             break;
         }
         case 6: {
