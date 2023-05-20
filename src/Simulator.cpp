@@ -1,6 +1,7 @@
 
 #include "Simulator.h"
 #include <iostream>
+#include <algorithm>
 
 Simulator::Simulator(const std::vector<uint16_t> initMemory) {
     pc = 0;
@@ -8,9 +9,7 @@ Simulator::Simulator(const std::vector<uint16_t> initMemory) {
     if(initMemory.size() > memory.size())
         throw std::invalid_argument("Input Memory is too long");
 
-    for(int i = 0; i < initMemory.size(); i++) {
-        memory[i] = initMemory[i];
-    }
+    std::copy_n(initMemory.begin(), initMemory.size(), memory.begin());
 }
 
 int Simulator::step() {
