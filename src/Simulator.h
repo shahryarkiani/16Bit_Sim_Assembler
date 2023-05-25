@@ -15,12 +15,12 @@ public:
     std::string printMemoryValue(uint16_t index);
     std::string printCurrentInstruction();
     bool isHalted();
-    const std::array<uint16_t, 65536>& getMemory();
+    const std::vector<uint16_t>& getMemory();
     const std::array<uint16_t, 8>& getRegisters();
 private:
     uint16_t pc;
     uint16_t ir;
-    std::array<uint16_t, 65536> memory{};//Memory is accessed in groups of 2 bytes, and with 16 bits, there are 2^16 accessible locations
+    std::vector<uint16_t> memory;//Memory is accessed in groups of 2 bytes, and with 16 bits, there are 2^16 accessible locations
     std::array<uint16_t, 8> registers{};//8 General Purpose Registers
     bool halted;
 

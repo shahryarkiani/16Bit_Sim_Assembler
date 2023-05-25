@@ -6,6 +6,7 @@
 Simulator::Simulator(const std::vector<uint16_t> initMemory) {
     pc = 0;
     halted = false;
+    memory = std::vector<uint16_t>(65536);
     if(initMemory.size() > memory.size())
         throw std::invalid_argument("Input Memory is too long");
 
@@ -110,7 +111,7 @@ inline uint16_t Simulator::getUnsignedImmediate() {
 }
 
 
-const std::array<uint16_t, 65536>& Simulator::getMemory() {
+const std::vector<uint16_t>& Simulator::getMemory() {
     return memory;
 }
 
