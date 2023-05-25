@@ -64,3 +64,13 @@ TEST_CASE("TEST BRANCH WITH EQUAL REGISTERS") {
     sim.step();
     REQUIRE(sim.getRegisters()[3] == 53);
 }
+
+TEST_CASE("TEST BRANCH WITH NOT EQUAL REGISTERS") {
+    //Same as above, but doesn't branch and writes 35 to r3
+    auto sim = Simulator({0x2485, 0x2906, 0xC503, 0x2DA3, 0, 0,  0x2DB5});
+    sim.step();
+    sim.step();
+    sim.step();
+    sim.step();
+    REQUIRE(sim.getRegisters()[3] == 35);
+}
