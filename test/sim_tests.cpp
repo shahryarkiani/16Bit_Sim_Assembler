@@ -83,3 +83,16 @@ TEST_CASE("TEST NAND OPCODE") {
     sim.step();
     REQUIRE(sim.getRegisters()[3] == 0x1F);
 }
+
+TEST_CASE("TEST JUMP AND LINK REGISTER") {
+    //Store 7 in r1, then jumps to address 7 and adds 5 to r1, storing PC + 1 in r2
+    auto sim = Simulator({0x2407, 0xE880, 0x2407, 0x2407, 0x2407, 0x2407, 0x2407, 0x2485});
+    sim.step();
+    REQUIRE(sim.getRegisters()[1] == 7);
+    sim.step();
+    sim.step();
+    REQUIRE(sim.getRegisters()[1] == 12);
+    REQUIRE(sim.getRegisters()[2] == 2);
+
+
+}
