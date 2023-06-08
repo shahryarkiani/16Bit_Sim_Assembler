@@ -74,3 +74,12 @@ TEST_CASE("TEST BRANCH WITH NOT EQUAL REGISTERS") {
     sim.step();
     REQUIRE(sim.getRegisters()[3] == 35);
 }
+
+TEST_CASE("TEST NAND OPCODE") {
+    //Store 32 in r1, then 55 in r2, then r3 = r1 NAND r2
+    auto sim = Simulator({0x24A0, 0x2937, 0x4C82});
+    sim.step();
+    sim.step();
+    sim.step();
+    REQUIRE(sim.getRegisters()[3] == 0x1F);
+}
