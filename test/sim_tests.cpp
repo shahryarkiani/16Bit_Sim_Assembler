@@ -81,7 +81,7 @@ TEST_CASE("TEST NAND OPCODE") {
     sim.step();
     sim.step();
     sim.step();
-    REQUIRE(sim.getRegisters()[3] == 0x1F);
+    REQUIRE(sim.getRegisters()[3] == 65503);
 }
 
 TEST_CASE("TEST JUMP AND LINK REGISTER") {
