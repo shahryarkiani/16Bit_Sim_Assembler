@@ -42,7 +42,7 @@ uint16_t Simulator::executeInstruction() {
             break;
         }
         case 2: {
-            //TODO
+            getRegA() = ~(getRegB() & getRegC());
             break;
         }
         case 3: {//Load Upper Immediate
