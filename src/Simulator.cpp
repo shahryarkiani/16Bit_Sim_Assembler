@@ -73,8 +73,10 @@ uint16_t Simulator::executeInstruction() {
             break;
         }
         case 7: {
-            //TODO
-            break;
+            auto& regA = getRegA();
+            auto& regB = getRegB();
+            regA = pc + 1;
+            return regB;
         }
     }
 
