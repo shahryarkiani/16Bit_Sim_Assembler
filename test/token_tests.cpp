@@ -17,3 +17,12 @@ TEST_CASE("TRIM TEST") {
     test = "the label:";
     REQUIRE(trim(test) == "the label:");
 }
+
+TEST_CASE("TOKENIZE TEST") {
+
+    std::string test = " add r1, r2,-7   ";
+    std::vector<std::string> expectedTokens = {"add", "r1", "r2", "-7"};
+
+    REQUIRE(tokenizeString(test) == expectedTokens);
+
+}
