@@ -62,7 +62,7 @@ std::vector<std::string> tokenizeString(std::string& input) {
 
         auto right = left;
 
-        //We start at left and  move right until we find a space
+        //We start at left and move right until we find a space
         while(right < input.end() && !isDelimiter(*right))
             right++;
 

@@ -25,4 +25,8 @@ TEST_CASE("TOKENIZE TEST") {
 
     REQUIRE(tokenizeString(test) == expectedTokens);
 
+    test = "main: \n  add r1,r2,start\n.fill 5  ";
+    expectedTokens = {"main:", "add", "r1", "r2", "start", ".fill", "5"};
+
+    REQUIRE(tokenizeString(test) == expectedTokens);
 }
