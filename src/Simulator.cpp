@@ -73,8 +73,15 @@ uint16_t Simulator::executeInstruction() {
             break;
         }
         case 7: {
+            if((ir >> 10) & 0b111 == 0 && (ir >> 7) & 0b111 == 0 && (ir & 0x7F) != 0) {
+                halted = true;
+                return pc + 1;
+            }
+
+
             auto& regA = getRegA();
             auto& regB = getRegB();
+
             regA = pc + 1;
             return regB;
         }
