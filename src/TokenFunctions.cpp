@@ -13,7 +13,7 @@ std::string trim(std::string& token) {//Trims leading and trailing whitespace
 
     if(left > right)
         return "";
-    return std::string(left, right + 1);
+    return {left, right + 1};
 }
 
 std::vector<std::string> tokenizeFile(const std::string& filename) {
