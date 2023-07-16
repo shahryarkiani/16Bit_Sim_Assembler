@@ -8,6 +8,9 @@
 #include <cstdint>
 #include <string>
 #include <unordered_map>
+#include <regex>
+#include "TokenFunctions.h"
+
 
 enum class operation {
     ADD, ADDIMMD, NAND, LOADUPPERIMMD, STOREW, LOADW, BRANCHEQUAl, JUMPANDLINK,//
@@ -16,14 +19,32 @@ enum class operation {
 
 class Assembler {
 public:
+    Assembler();
     std::vector<uint16_t> assemble(const std::vector<std::string>& tokens);
-private:
+    std::vector<uint16_t> assemble(const std::string& filename);
     std::unordered_map<std::string, uint16_t> mapSymbols(const std::vector<std::string>& tokens);
+private:
     operation getOperation(const std::string& token);
     bool isLabel(const std::string& token);
     std::string getLabel(const std::string& token);
-    int getOperationLength(operation op);
+    int getOperationSize(operation op);
+    int getOperandCount(operation op);
 };
 
+static std::unordered_map<std::string, operation> const stringOpMap = {
+        {"add", operation::ADD},
+        {"addi", operation::ADDIMMD},
+        {"nand", operation::NAND},
+        {"lui", operation::LOADUPPERIMMD},
+        {"sw", operation::STOREW},
+        {"lw", operation::LOADW},
+        {"beq", operation::BRANCHEQUAl},
+        {"jalr", operation::JUMPANDLINK},
+        {"halt", operation::HALT},
+        {"lli", operation::LOADLOWERIMMD},
+        {"movi", operation::LOADIMMD},
+        {".fill", operation::FILL},
+        {".space", operation::SPACE}
+};
 
 #endif //TOY_ASSEMBLER_ASSEMBLER_H
