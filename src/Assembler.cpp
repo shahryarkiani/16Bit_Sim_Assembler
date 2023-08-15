@@ -9,12 +9,107 @@ Assembler::Assembler() {}
 std::vector<uint16_t> Assembler::assemble(const std::vector<std::string>& tokens) {
 
     //The first pass, this maps the symbols(like labels) to their actual position or value in the resulting machine code
-    auto symbolsMap = mapSymbols(tokens);
+    std::unordered_map<std::string, uint16_t> symbolsMap = mapSymbols(tokens);
+
+    std::vector<uint16_t> machineCode;
 
     //The second pass then generates the machine code, while also replacing the symbols with their real values
+    for (auto it = tokens.begin(); it != tokens.end(); it++) {
+
+        std::string token = *it;
+
+        //Nothing to generate for labels
+        if (isLabel(token))
+            continue;
+
+        //We determine what type of operation it is
+        auto operation = getOperation(token);
+
+        int operandCount = getOperandCount(operation);
+
+        if (it + operandCount >= tokens.end()) {
+            throw std::invalid_argument("Not enough operands for operation " + token);
+        }
 
 
-    return std::vector<uint16_t>();
+
+        switch (operation) {
+            case operation::ADD: {
+                int regA = getRegisterNum(*(++it));
+                int regB = getRegisterNum(*(++it));
+                int regC = getRegisterNum(*(++it));
+
+                uint16_t instruction = 0 | (regA << 10) | (regB << 7) | regC;
+
+                machineCode.push_back(instruction);
+
+                break;
+            }
+            case operation::ADDIMMD: {
+                int regA = getRegisterNum(*(++it));
+                int regB = getRegisterNum(*(++it));
+
+                int immd;
+
+                ++it;
+
+                if(symbolsMap.count(*it) == 1) {
+                    immd = symbolsMap[*it];
+                    if(immd > 127) {
+                        throw std::invalid_argument("Immediate value of " + *it + " is too large");
+                    }
+                }
+                else {
+                    try {
+                        immd = stoi((*it));
+                        if(immd > 63 || immd < -64) {
+                            throw std::invalid_argument("Immediate value of " + *it + " is too large");
+                        }
+                    } catch (std::invalid_argument& err) {
+                        throw std::invalid_argument("Unable to parse this immediate token: " + *it);
+                    }
+                }
+
+                immd &= 0b1111111;
+
+                uint16_t instruction = (1 << 13) | (regA << 10) | (regB << 7) | immd;
+
+                machineCode.push_back(instruction);
+
+                break;
+            }
+            case operation::NAND: {
+                int regA = getRegisterNum(*(++it));
+                int regB = getRegisterNum(*(++it));
+                int regC = getRegisterNum(*(++it));
+
+                uint16_t instruction = (0b010 <<13 ) | (regA << 10) | (regB << 7) | regC;
+
+                machineCode.push_back(instruction);
+
+                break;
+            }
+            case operation::LOADUPPERIMMD: {
+                int regA = getRegisterNum(*(++it));
+
+                int immd;
+
+                try {
+                    immd = stoi(*(++it));
+                    if(immd > 1023) {
+                        throw std::invalid_argument("Immediate value of " + *it + " is too large");
+                    }
+                } catch (std::invalid_argument& err) {
+                    throw std::invalid_argument("Unable to parse this immediate token: " + *it);
+                }
+
+                break;
+            }
+        }
+
+    }
+
+    return machineCode;
 }
 
 
