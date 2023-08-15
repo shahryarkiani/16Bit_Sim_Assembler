@@ -119,24 +119,24 @@ std::unordered_map<std::string, uint16_t> Assembler::mapSymbols(const std::vecto
 
     int position = 0;
 
-    for(auto it = tokens.begin(); it != tokens.end();) {
+    for (auto it = tokens.begin(); it != tokens.end();) {
         auto token = *it;
-        if(isLabel(token)) {
+        if (isLabel(token)) {
             symbolsMap.insert({ getLabel(token), position });
             it++;
         } else {
             auto operation = getOperation(token);
-            if(operation == operation::SPACE) {
+            if (operation == operation::SPACE) {
                 it++;
 
                 //bounds check just in case
                 if(it == tokens.end()) {
-                    throw std::invalid_argument("[ERROR] EOF reached before finding argument for fill statement");
+                    throw std::invalid_argument("[ERROR] EOF reached before finding argument for space statement");
                 }
 
                 int fillSpaces = std::stoi(*it);
 
-                if(fillSpaces >= 65536)
+                if (fillSpaces >= 65536)
                     throw std::invalid_argument("[ERROR] .space argument is larger than memory space");
 
                 position += fillSpaces;
@@ -155,11 +155,11 @@ std::unordered_map<std::string, uint16_t> Assembler::mapSymbols(const std::vecto
 }
 
 operation Assembler::getOperation(const std::string &token) {
-    if(token.empty())
+    if (token.empty())
         throw std::invalid_argument("Cannot get operation of empty string");
 
 
-    if(stringOpMap.count(token) != 0) {
+    if (stringOpMap.count(token) != 0) {
         return stringOpMap.at(token);
     } else {
         throw std::invalid_argument("[" + token + "] is an invalid token");
@@ -181,10 +181,10 @@ std::string Assembler::getLabel(const std::string &token) {
 
 int Assembler::getOperationSize(operation op) {
 
-    if(op == operation::SPACE)
+    if (op == operation::SPACE)
         throw std::invalid_argument("Unable to determine size of space operation");
 
-    if(op == operation::LOADIMMD)
+    if (op == operation::LOADIMMD)
         return 2;
     else
         return 1;
