@@ -1,7 +1,3 @@
-//
-// Created by shahr on 5/19/2023.
-//
-
 #include "Assembler.h"
 
 Assembler::Assembler() {}
@@ -207,6 +203,16 @@ int Assembler::getOperandCount(operation op) {
 
 std::vector<uint16_t> Assembler::assemble(const std::string &filename) {
     return {};
+}
+
+
+int Assembler::getRegisterNum(const std::string &regToken) {
+    if (regToken.length() != 2 || regToken.at(0) != 'r' || (regToken.at(1) < '0' || regToken.at(1) > '7')) {
+        throw std::invalid_argument(regToken + " is not a valid register");
+    }
+    //Register tokens should be in the form of r0, r1 etc., so we just return the number character minus '0'
+    return regToken.at(1) - '0';
+
 }
 
 
