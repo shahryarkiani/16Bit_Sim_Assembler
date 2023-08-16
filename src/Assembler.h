@@ -29,6 +29,7 @@ private:
     std::string getLabel(const std::string& token);
     int getOperationSize(operation op);
     int getOperandCount(operation op);
+    int getRegisterNum(const std::string& regToken);
 };
 
 static std::unordered_map<std::string, operation> const stringOpMap = {
@@ -44,7 +45,8 @@ static std::unordered_map<std::string, operation> const stringOpMap = {
         {"lli", operation::LOADLOWERIMMD},
         {"movi", operation::LOADIMMD},
         {".fill", operation::FILL},
-        {".space", operation::SPACE}
+        {".space", operation::SPACE},
+        {"nop", operation::NOOP}
 };
 
 #endif //TOY_ASSEMBLER_ASSEMBLER_H
